@@ -173,8 +173,13 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 
-
-#Ignorar todos los archivos en data/raw/
+# Ignorar todos los archivos en data/raw/
 data/raw/*
-#Mantener el archivo .gitkeep
 !data/raw/.gitkeep 
+
+# Local freeze files (developer snapshots)
+requirements.txt
+
+# Checkpoints
+models/checkpoints/*
+!models/checkpoints/.gitkeep
