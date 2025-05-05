@@ -15,7 +15,6 @@ def clean_basic_text_preserve_emojis(text):
     """
     text = re.sub(r"http\S+|www\S+", "", text)
     text = re.sub(r"@\w+|#\w+", "", text)
-    text = re.sub(r"[^a-zA-Z0-9áéíóúñüÁÉÍÓÚÑÜ\s.,!?¡¿:;()\"'´’‘”“-]", "", text)
     text = re.sub(r'\s+([?.!,])', r'\1', text)
     text = re.sub(r"\s+", " ", text).strip()
     return text

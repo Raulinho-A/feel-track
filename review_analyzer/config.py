@@ -16,9 +16,12 @@ RAW = DATA_DIR / "raw"
 TIKTOK_COMMENTS = RAW / "comentarios_tiktok_consolidados_1.0.csv"
 
 EXP_SNAPSHOT_PATH = INTERIM / "comentarios_explorados_1.0.csv"
-TRAD_SNAPSHOT_PATH = INTERIM / "comentarios_traducidos_1.0.csv"
+
+GOLDEN_SET_PATH = INTERIM / "golden_set_to_label.csv"
+GOLDEN_SET_LABELED_PATH = INTERIM / "golden_set_labeled.csv"
 
 BERT_EMBEDDINGS = PROCESSED / "bert_embeddings.npy"
+BERT_SENTIMENT_PATH = INTERIM / "comments_with_bert_sentiment.csv"
 
 # Models
 MODELS_DIR = PROJ_ROOT / "models"
