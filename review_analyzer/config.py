@@ -23,6 +23,8 @@ GOLDEN_SET_LABELED_PATH = INTERIM / "golden_set_labeled.csv"
 BERT_EMBEDDINGS = PROCESSED / "bert_embeddings.npy"
 BERT_SENTIMENT_PATH = INTERIM / "comments_with_bert_sentiment.csv"
 
+FINAL_PROCESSED_DATA_PATH = PROCESSED / "final_clean_dataset.csv"
+
 # Models
 MODELS_DIR = PROJ_ROOT / "models"
 
