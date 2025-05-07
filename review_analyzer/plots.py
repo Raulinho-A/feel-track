@@ -1,27 +1,16 @@
 from IPython.display import display, HTML
 import matplotlib.pyplot as plt
 import seaborn as sns
-from langdetect import detect, DetectorFactory
+from langdetect import detect, LangDetectException, DetectorFactory
 import pandas as pd
 from wordcloud import WordCloud
-from collections import Counter
-from itertools import combinations
+import pycountry
 
 
 plt.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.family'] = 'DejaVu Sans'
 
 DetectorFactory.seed = 0
-
-LANGUAGE_MAP = {
-    'es': 'Español', 'en': 'Inglés', 'pt': 'Portugués', 'it': 'Italiano',
-    'fr': 'Francés', 'de': 'Alemán', 'nl': 'Neerlandés', 'da': 'Danés',
-    'ro': 'Rumano', 'tl': 'Tagalo', 'ca': 'Catalán', 'et': 'Estonio',
-    'no': 'Noruego', 'fi': 'Finés', 'hu': 'Húngaro', 'tr': 'Turco',
-    'lt': 'Lituano', 'sy': 'Sirio', 'sq': 'Albanés', 'sv': 'Sueco',
-    'id': 'Indonesio', 'sl': 'Esloveno', 'cs': 'Checo', 'so': 'Somalí',
-    'sw': 'Suajili'
-}
 
 def apply_plot_config(func):
     """
@@ -90,6 +79,21 @@ def plot_correlation_scatter(df, x_var, y_var, color='blue', alpha=0.5):
     plt.grid(True)
     plt.show()
 
+def get_language_name(code):
+    """
+    Traduce un código de idioma (ISO 639-1 o 639-3) a su nombre completo.
+    Si no se encuentra, devuelve el código original.
+    """
+    if code == 'unknown':
+        return 'Desconocido'
+    try:
+        lang = pycountry.languages.get(alpha_2=code)
+        if lang is None:
+            lang = pycountry.languages.get(alpha_3=code)
+        return lang.name if lang else code
+    except:
+        return code
+
 @apply_plot_config
 def plot_language_distribution(comment_series, sample_size=500, color='mediumseagreen'):
     """
@@ -99,20 +103,28 @@ def plot_language_distribution(comment_series, sample_size=500, color='mediumsea
     - comment_series: Serie de texto (columna de comentarios).
     - sample_size: número de muestras aleatorias a analizar.
     """
+    def safe_detect(text):
+        try:
+            return detect(text)
+        except LangDetectException:
+            return 'unknown'
+    
     sample = comment_series.dropna().astype(str)
     sample = sample[sample.apply(lambda x: len(x.strip()) > 10)]
-    sample = sample.sample(n=sample_size, random_state=42)
+    sample = sample.sample(n=min(sample_size, len(sample)), random_state=42)
     
-    languages = sample.apply(lambda x: detect(x))
+    languages = sample.apply(safe_detect)
     lang_counts = languages.value_counts()
-    lang_counts.index = lang_counts.index.map(lambda code: LANGUAGE_MAP.get(code, code))
+    lang_counts.index = lang_counts.index.map(get_language_name)
     
-    plt.figure(figsize=(10, 5))
+    plt.figure(figsize=(12, 6))
     lang_counts.plot(kind='bar', color=color)
-    plt.title('Distribución de idiomas en muestra de comentarios')
-    plt.xlabel('Idioma detectado')
-    plt.ylabel('Cantidad')
-    plt.grid(True)
+    plt.title('Distribución de idiomas en muestra de comentarios', fontsize=14, fontname='DejaVu Sans')
+    plt.xlabel('Idioma detectado', fontsize=12)
+    plt.ylabel('Cantidad', fontsize=12)
+    plt.xticks(rotation=45, ha='right')
+    plt.grid(axis='y')
+    plt.tight_layout()
     plt.show()
 
 @apply_plot_config
