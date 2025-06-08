@@ -176,6 +176,10 @@ cython_debug/
 # Ignorar todos los archivos en data/raw/
 data/raw/*
 !data/raw/.gitkeep 
+data/interim/*
+!data/interim/.gitkeep 
+data/external/*
+!data/external/.gitkeep 
 
 # Local freeze files (developer snapshots)
 requirements.txt

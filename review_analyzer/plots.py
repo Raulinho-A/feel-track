@@ -12,6 +12,12 @@ plt.rcParams['font.family'] = 'DejaVu Sans'
 
 DetectorFactory.seed = 0
 
+def show_full_dataset(df):
+    with pd.option_context('display.max_columns', None,
+                       'display.max_colwidth', None,
+                       'display.max_rows', 100):
+        display(df)
+
 def apply_plot_config(func):
     """
     Decorador que asegura la configuración correcta de matplotlib antes de graficar.
