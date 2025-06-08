@@ -13,6 +13,10 @@ INTERIM = DATA_DIR / "interim"
 PROCESSED = DATA_DIR / "processed"
 RAW = DATA_DIR / "raw"
 
+# Models
+MODEL_DIR = PROJ_ROOT / "model"
+TRAINED = MODEL_DIR / "trained"
+
 # 1
 TIKTOK_COMMENTS = RAW / "comentarios_tiktok_consolidados_1.0.csv"
 

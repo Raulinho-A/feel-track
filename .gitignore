@@ -182,6 +182,7 @@ data/external/*
 !data/external/.gitkeep 
 
 notebooks/raa/logs/*
+notebooks/raa/results/*
 
 # Local freeze files (developer snapshots)
 requirements.txt
