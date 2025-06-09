@@ -183,6 +183,7 @@ data/external/*
 
 notebooks/raa/logs/*
 notebooks/raa/results/*
+notebooks/raa/modelo_multilabel_goemotions/*
 
 # Local freeze files (developer snapshots)
 requirements.txt
