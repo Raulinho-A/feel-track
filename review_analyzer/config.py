@@ -5,6 +5,11 @@ load_dotenv()
 
 PROJ_ROOT = Path(__file__).resolve().parents[1]
 
+# Api
+API = PROJ_ROOT  / "api"
+API_MODEL = API  / "model"
+
+
 # Data
 DATA_DIR = PROJ_ROOT / "data"
 

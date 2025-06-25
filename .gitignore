@@ -191,3 +191,6 @@ requirements.txt
 # Checkpoints
 models/checkpoints/*
 !models/checkpoints/.gitkeep
+
+# Api
+api/model/
